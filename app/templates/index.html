@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Agro Smart</title>
+        {% load static %}
+        <link rel="icon" type="image/x-icon" href={% static 'image/logo.png' %}>
+        
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    </head>
+
+    <body>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+        
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+        <nav class="navbar navbar-expand-lg" style="background-color: #35356e;">
+            <div class="container-fluid">
+              <a class="navbar-brand text-uppercase fw-bold" style="color:white; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;" href="{% url 'index' %}">Predict Crop</a>
+            </div>
+        </nav>
+
+        <div class="container-fluid">
+            <h2 class="text-uppercase fw-bold" style="text-align: center; padding-top:10px;">Predict Crop</h2>
+            <form method="POST" action="{% url 'result' %}" class="row g-3 justify-content-center" style="padding-top: 15px;">
+                {% csrf_token %} 
+
+                <div class="row justify-content-center">
+                    <div class="col-md-6 col-lg-4"  style="padding-top: 30px;">
+                        <label name="nitrogen" class="form-label text-uppercase fw-bold">Nitrogen</label>
+                        <div class="input-group ">
+                            <input type="number" class="form-control" name="nitrogen" min="1" style="border: 2px solid #35356e;" required>
+                            <div class="input-group-text">Kg/Ha</div>
+                        </div>
+                        <div id="nitrogentext" class="form-text" style="font-size:12px; color: #35356e;;">
+                            Nitrogen value must be in Kilogram per Hectare. Value must be in integer(eg. 80)
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4" style="padding-top: 30px;">
+                        <label name="phosphorus" class="form-label text-uppercase fw-bold">Phosphorus</label>
+                        <div class="input-group ">
+                            <input type="number" class="form-control" name="phosphorus" min="1" style="border: 2px solid #35356e;" required>
+                            <div class="input-group-text" >Kg/Ha</div>
+                        </div>
+                        <div id="phosphorustext" class="form-text" style="font-size:12px; color: #35356e;;">
+                            Phosphorus value must be in Kilogram per Hectare. Value must be in integer(eg. 256)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center" >
+                    <div class="col-md-6 col-lg-4" style="padding-top: 25px;">
+                        <label name="potassium" class="form-label text-uppercase fw-bold">potassium</label>
+                        <div class="input-group ">
+                            <input type="number" class="form-control" name="potassium" min="1" style="border: 2px solid #35356e;" required>
+                            <div class="input-group-text" >Kg/Ha</div>
+                        </div>
+                        <div id="potassiumtext" class="form-text" style="font-size:12px; color: #35356e;;">
+                            Potassium value must be in Kilogram per Hectare. Value must be in integer(eg. 146)
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4" style="padding-top: 25px;">
+                        <label name="temperature" class="form-label text-uppercase fw-bold">temperature</label>
+                        <div class="input-group ">
+                            <input type="number" class="form-control" min="1" max="70" name="temperature" style="border: 2px solid #35356e;" required>
+                            <div class="input-group-text" >°C</div>
+                        </div>
+                        <div id="temptext" class="form-text" style="font-size:12px; color: #35356e;;">
+                            Temperature value must be in Celsius. Value must be in integer(eg. 28)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-md-6 col-lg-4" style="padding-top: 25px;">
+                        <label name="humidity" class="form-label text-uppercase fw-bold">humidity</label>
+                        <div class="input-group ">
+                            <input type="number" class="form-control" min="1" max="100" name="humidity" style="border: 2px solid #35356e;" required>
+                            <div class="input-group-text" >%</div>
+                        </div>
+                        <div id="humtext" class="form-text" style="font-size:12px; color: #35356e;;">
+                            Humidity value must be in Percentage. Value must be in integer(eg. 82) and between 1-100.
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4" style="padding-top: 25px;">
+                        <label name="rainfall" class="form-label text-uppercase fw-bold">rainfall</label>
+                        <div class="input-group ">
+                            <input type="number" class="form-control" min="1" name="rainfall" style="border: 2px solid #35356e;" required>
+                            <div class="input-group-text" >cm</div>
+                        </div>
+                        <div id="raintext" class="form-text" style="font-size:12px; color: #35356e;;">
+                            Average rainfall must be in Centimeter. Value must be in integer(eg. 259)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center" style="padding-top: 30px;">
+                    <div class="col-md-6 col-lg-8">
+                        <label class="form-label text-uppercase fw-bold" name="ph">ph value</label>
+                        <div class="range">
+                            <input type="range" class="form-range" name="ph" min="0" max="14" step="0.25" onInput="$('#rangeval').html($(this).val())" required>
+                        </div>
+                        <span id="rangeval" style="font-weight:bold; color:#35356e; font-size: 25px;">7</span>
+                        <div id="phtext" class="form-text" style="font-size:12px; color: #35356e;;">
+                            Set the PH Value of your soil
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-md-6 col-lg-4" style="padding-top: 25px;">
+                        <button type="submit" value="submit_form" class="btn btn-success text-uppercase fw-bold" style="width:100%; height:45px;">PREDICT</button>
+                    </div>
+                    <div class="col-md-6 col-lg-4" style="padding-top: 25px;">
+                        <button type="reset" class="btn btn-danger text-uppercase fw-bold" style="width:100%; height:45px;">RESET</button>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+
+        <div class="container-fluid" style="padding: 0; padding-top:60px;">
+            <footer class="text-center text-white" style="background-color: #35356e;">
+                <!-- Grid container -->
+                <div class="container p-4 pb-0">
+                    <!-- Section: Social media -->
+                    <section class="mb-4">
+                    
+                        <!-- Facebook -->
+                        <a class="btn btn-outline-light btn-floating m-1" href="https://twitter.com/hamradio_india" target='_blank' role="button"><i class="bi bi-facebook"></i></a>
+                    
+                        <!-- Twitter -->
+                        <a class="btn btn-outline-light btn-floating m-1" href="https://twitter.com/vu3tpz"  target='_blank' role="button"><i class="bi bi-twitter"></i></a>
+                    
+                        <!-- Google -->
+                        <a class="btn btn-outline-light btn-floating m-1" href="https://www.instagram.com/hamradio.india/" target='_blank' role="button"><i class="bi bi-google"></i></a>
+                    
+                        <!-- Instagram -->
+                        <a class="btn btn-outline-light btn-floating m-1" href="https://www.instagram.com/vu3tpz/" target='_blank' role="button"><i class="bi bi-instagram"></i></a>
+                    
+                        <!-- Linkedin -->
+                        <a class="btn btn-outline-light btn-floating m-1" href="#!" target='_blank' role="button"><i class="bi bi-linkedin"></i></a>
+                    
+                        <!-- Github -->
+                        <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/vu3tpz/" target='_blank' role="button"><i class="bi bi-github"></i></a>
+                    
+                    </section>
+                    <!-- Section: Social media -->
+                </div>
+            
+                <!-- Grid container -->
+            
+                    <!-- Copyright -->
+                    <div class="text-center p-3 text-uppercase fw-bold" style="background-color: rgba(0, 0, 0, 0.2);">
+                        <p>Made With ❤️ by Vishnu M</p>
+                        <p>AgroSmart.in</p>
+                    </div>
+                    <!-- Copyright -->
+            </footer>
+        </div>
+    </body>
+
+</html>

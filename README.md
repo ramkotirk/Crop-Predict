@@ -4,9 +4,9 @@ Simple Machine Learning that implement in this Website.
 
 Crop Predict is a web application developed using Python Django Framework. 
 
-In Crop Predict you can predict the crop that suitable for nutrient that you entered or in your location
+In Crop Predict you can predict the crop that suitable for nutrient that you entered or in your location.
 
-[**Click Here to View Website**]()
+[**Click Here to View Website**](https://predictcrop.herokuapp.com/)
 
 # Disclaimer ⚠️
 
@@ -84,3 +84,11 @@ python manage.py runserver
 http://127.0.0.1:8000
 ```
 
+# Screen Layout 🎟️
+
+![Screenshot (45)](https://user-images.githubusercontent.com/101320198/192152815-332924ed-60c5-4d84-ae40-41d9975c65ad.png)
+
+![Screenshot (46)](https://user-images.githubusercontent.com/101320198/192152823-b4ffab6f-bd53-4ae5-9ebc-e94da3ef1e77.png)
+
+
+# The End ⚔️
